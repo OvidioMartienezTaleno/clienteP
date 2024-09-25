@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OnStream</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        /* Barra de navegación */
+        .navbar {
+            background-color: #1c1c1c;
+            width: 100%;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+        .nav-links li {
+            margin-left: 20px;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #ffffff;
+        }
+        /* Estilo para la barra de búsqueda */
+        #searchBar {
+            margin: 20px;
+            padding: 10px;
+            width: 80%;
+            max-width: 600px;
+            border: 1px solid #333;
+            border-radius: 5px;
+            background-color: #1f1f1f;
+            color: #ffffff;
+        }
+        /* Estilo del grid de videos */
+        #videoGrid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 80%;
+            max-width: 1200px;
+        }
+        .videoCard {
+            background-color: #1f1f1f;
+            margin: 10px;
+            padding: 15px;
+            border-radius: 8px;
+            width: 250px;
+            text-align: center;
+        }
+        .videoCard h3 {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+        .videoControls {
+            margin-top: 10px;
+        }
+        .playButton {
+            padding: 10px 15px;
+            background-color: #1e90ff;
+            border: none;
+            border-radius: 5px;
+            color: #ffffff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .playButton:hover {
+            background-color: #007acc;
+        }
+        /* Estilo del modal */
+        #playerModal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            align-items: center;
+            justify-content: center;
+        }
+        .modalContent {
+            background-color: #121212;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .closeModal {
+            color: #ffffff;
+            cursor: pointer;
+            float: right;
+            font-size: 24px;
+        }
+        video {
+            width: 100%;
+            max-width: 500px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <nav class="navbar">
+        <div class="logo">OnStream</div>
+        <ul class="nav-links">
+            <li><a href="main.html">Inicio</a></li>
+            <li><a href="#">Series</a></li>
+            <li><a href="music.html">Musica</a></li>
+        </ul>
+    </nav>
+    
+    <!-- Barra de búsqueda -->
+    <input type="text" id="searchBar" placeholder="Buscar video..." oninput="filterVideos()">
+
+    <div id="videoGrid"></div>
+
+    <div id="playerModal">
+        <div class="modalContent">
+            <span class="closeModal">&times;</span>
+            <video id="videoPlayer" controls></video>
+        </div>
+    </div>
+
+    <script>
+        let videosList = [];
+
+        // Conectar al WebSocket
+        const socket = new WebSocket('ws://172.24.104.98:3000');
+
+        socket.onopen = function() {
+            console.log('Conectado al servidor WebSocket');
+        };
+
+        socket.onmessage = function(event) {
+            videosList = JSON.parse(event.data); // Guardamos la lista completa de videos
+            displayVideos(videosList);
+        };
+
+        socket.onerror = function(error) {
+            console.error('Error de WebSocket:', error);
+        };
+
+        function displayVideos(videos) {
+            const videoGrid = document.getElementById('videoGrid');
+            videoGrid.innerHTML = '';
+            videos.forEach(video => {
+                const videoCard = document.createElement('div');
+                videoCard.className = 'videoCard';
+                
+                const videoName = document.createElement('h3');
+                videoName.textContent = video.split('/').pop();
+
+                const controlsDiv = document.createElement('div');
+                controlsDiv.className = 'videoControls';
+
+                const playButton = document.createElement('button');
+                playButton.textContent = 'Reproducir';
+                playButton.className = 'playButton';
+                playButton.onclick = () => playVideo(video);
+
+                controlsDiv.appendChild(playButton);
+                videoCard.appendChild(videoName);
+                videoCard.appendChild(controlsDiv);
+                videoGrid.appendChild(videoCard);
+            });
+        }
+
+        function playVideo(videoUrl) {
+            const modal = document.getElementById('playerModal');
+            const videoPlayer = document.getElementById('videoPlayer');
+            videoPlayer.src = videoUrl;
+            modal.style.display = 'flex';
+            videoPlayer.play();
+        }
+
+        function filterVideos() {
+            const searchTerm = document.getElementById('searchBar').value.toLowerCase();
+            const filteredVideos = videosList.filter(video => video.toLowerCase().includes(searchTerm));
+            displayVideos(filteredVideos);
+        }
+
+        document.querySelector('.closeModal').onclick = function() {
+            const modal = document.getElementById('playerModal');
+            const videoPlayer = document.getElementById('videoPlayer');
+            modal.style.display = 'none';
+            videoPlayer.pause();
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('playerModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+                document.getElementById('videoPlayer').pause();
+            }
+        }
+
+        // Cargar videos inicialmente
+        socket.onopen = fetchVideos;
+
+        function fetchVideos() {
+            socket.send('fetch_videos'); // O un mensaje adecuado para solicitar videos si es necesario
+        }
+
+        // Actualizar la lista cada 30 segundos
+        setInterval(fetchVideos, 30000);
+    </script>
+</body>
+</html>

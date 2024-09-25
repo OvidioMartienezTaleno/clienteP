@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OnStream Music</title>
+    <link rel="stylesheet" href="styles/styleM.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">OnStream Music</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="movies.html">Peliculas</a></li>
+        </ul>
+    </nav>
+
+    <input type="text" id="searchBar" placeholder="Buscar música..." oninput="filterTracks()">
+
+    <div id="musicGrid"></div>
+
+    <!-- Contenedor del reproductor -->
+    <div id="playerContainer">
+        <audio id="audioPlayer" controls>
+            Your browser does not support the audio element.
+        </audio>
+        <button id="closePlayer">Cerrar Reproductor</button>
+    </div>
+    
+
+    <script src="scripts/connectionM.js"></script>
+</body>
+</html>

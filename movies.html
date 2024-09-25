@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OnStream</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <nav class="navbar">
+        <div class="logo">OnStream</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="music.html">Musica</a></li>
+        </ul>
+    </nav>
+    
+    <!-- Barra de búsqueda -->
+    <input type="text" id="searchBar" placeholder="Buscar video..." oninput="filterVideos()">
+
+    <div id="videoGrid"></div>
+
+    <div id="playerModal">
+        <div class="modalContent">
+            <span class="closeModal">&times;</span>
+            <video id="videoPlayer" controls></video>
+        </div>
+    </div>
+
+    <script src="scripts/connection.js"></script>
+</body>
+</html>
