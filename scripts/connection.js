@@ -1,7 +1,7 @@
 let videosList = [];
 
 // Conectar al WebSocket
-const socket = new WebSocket('ws://172.24.104.98:3000');
+const socket = new WebSocket('ws://172.24.104.98:8000');
 
 socket.onopen = function () {
     console.log('Conectado al servidor WebSocket');

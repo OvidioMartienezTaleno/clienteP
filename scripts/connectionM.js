@@ -1,7 +1,7 @@
 let musicList = [];
 
 // Conectar al WebSocket
-const socket = new WebSocket('ws://localhost:3000');
+const socket = new WebSocket('ws://localhost:8000');
 
 socket.onopen = function () {
     console.log('Conectado al servidor WebSocket');
