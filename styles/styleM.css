@@ -60,46 +60,51 @@ body {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
-/* Contenedor de las tarjetas de música */
+/* Contenedor de las tarjetas de música, ajustado para lista */
 #musicGrid {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column; /* Cambiar de "wrap" a una columna para que sea una lista */
     justify-content: center;
+    align-items: center;
     width: 80%;
     max-width: 1200px;
     margin-top: 20px;
 }
 
-/* Tarjetas de cada pista */
+/* Elementos de la lista de música */
 .trackCard {
-    background-color: #282828; /* Fondo de tarjeta similar al estilo de Spotify */
-    margin: 10px;
+    background-color: #282828; /* Fondo oscuro */
+    margin: 10px 0; /* Separación entre cada tarjeta para que parezca lista */
     padding: 20px;
     border-radius: 10px;
-    width: 200px;
-    text-align: center;
+    width: 100%; /* Ocupa todo el ancho disponible */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     transition: transform 0.3s, box-shadow 0.3s;
     cursor: pointer;
 }
 
 .trackCard:hover {
-    transform: scale(1.05);
+    transform: scale(1.02); /* Efecto hover leve */
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
+/* Nombre de la pista dentro de la lista */
 .trackCard h3 {
-    margin: 15px 0;
-    font-size: 16px;
+    margin: 0;
+    font-size: 18px; /* Ajusta el tamaño para que sea más grande y claro */
     color: #ffffff;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    flex-grow: 1;
 }
 
-/* Botón de reproducción */
+/* Botón de reproducción dentro de la lista */
 .playButton {
     padding: 10px 20px;
-    background-color: #1DB954; /* Verde característico de Spotify */
+    background-color: #1DB954; /* Verde de Spotify */
     border: none;
     border-radius: 50px;
     color: #ffffff;
@@ -107,6 +112,7 @@ body {
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
+    margin-left: 20px; /* Separación entre el texto y el botón */
 }
 
 .playButton:hover {
@@ -114,36 +120,6 @@ body {
     transform: scale(1.1);
 }
 
-/* Contenedor del reproductor */
-#playerContainer {
-    display: none;
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #282828; /* Fondo del reproductor */
-    padding: 10px 20px;
-    border-radius: 50px;
-    display: flex;
-    align-items: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-}
-
-/* Botón para cerrar el reproductor */
-#closePlayer {
-    background-color: #ff4d4d;
-    border: none;
-    color: #ffffff;
-    padding: 5px 15px;
-    margin-left: 10px;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-#closePlayer:hover {
-    background-color: #e60000;
-}
 
 /* Contenedor del reproductor */
 #playerContainer {
