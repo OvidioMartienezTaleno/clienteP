@@ -11,7 +11,7 @@ body {
 
 /* Barra de navegación superior */
 .navbar {
-    background-color: #d62424; /* Fondo de barra de navegación */
+    background-color: #181818; /* Fondo de barra de navegación */
     width: 100%;
     padding: 15px 30px;
     display: flex;
@@ -69,7 +69,6 @@ body {
     width: 80%;
     max-width: 1200px;
     margin-top: 20px;
-    background-color: #1DB954;
 }
 
 /* Elementos de la lista de música */
