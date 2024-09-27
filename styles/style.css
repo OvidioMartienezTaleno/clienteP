@@ -78,6 +78,11 @@ input[type="text"]::placeholder {
     height: 300px; /* Altura fija para la tarjeta */
 }
 
+.videoCard:hover{
+    transform: scale(1.1);
+    background-color: #333333;
+}
+
 /* Estilo del video */
 .videoCard video {
     width: 100%;
