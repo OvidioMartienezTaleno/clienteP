@@ -25,17 +25,37 @@
         <h2>Catálogo de OnStream</h2>
         <div class="movie-row">
             <img src="img/transformers.jpg" alt="Movie 1" class="movie-image" data-movie="Gravity">
+
             <img src="img/star_wars.jpg" alt="Movie 2" class="movie-image" data-movie="Interstellar">
+
             <img src="img/avengers.jpg" alt="Movie 3" class="movie-image" data-movie="Avengers">
+
             <img src="img/interstellar.jpg" alt="Movie 4" class="movie-image" data-movie="Interstellar">
+
             <img src="img/the_martian.jpg" alt="Movie 5" class="movie-image" data-movie="The Martian">
+
             <img src="img/gravity.jpg" alt="Movie 6" class="movie-image" data-movie="Gravity">
+
             <img src="img/LOTR.jpg" alt="Movie 7" class="movie-image" data-movie="LOTR">
-            <img src="img/TDK.jpg" alt="Movie 8" class="movie-image" data-movie="TDK">
+
+            <img src="img/TDK.jpg" alt="Movie 8" class="movie-image" data-movie="TDK"
+             data-link="https://psop1.s3.amazonaws.com/Batman, The Dark Knight (2008) Official Trailer.mp4">
         </div>
     </section>
 
-    <!-- Vincular el archivo JS de conexión de películas -->
-    <script src="scripts/connection.js"></script>
+    <script>
+        // Obtener todas las imágenes de la película
+        const movieImages = document.querySelectorAll('.movie-image');
+    
+        // Agregar evento click a cada imagen
+        movieImages.forEach(image => {
+            image.onclick = function() {
+                const link = this.getAttribute('data-link');
+                if (link) {
+                    window.open(link, '_blank'); 
+                }
+            };
+        });
+    </script>
 </body>
 </html>
