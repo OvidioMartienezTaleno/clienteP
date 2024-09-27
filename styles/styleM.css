@@ -166,3 +166,31 @@ body {
 #closePlayer:hover {
     background-color: #e60000;
 }
+
+/* Estilos para dispositivos móviles */
+
+@media (max-width: 768px) {
+    .navbar .nav-links {
+        display: none;
+    }
+
+    .navbar .logo {
+        float: none;
+        text-align: center;
+    }
+
+    .movie-row {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .movie-row img {
+        width: 80%;
+        height: auto;
+    }
+
+    .mp4-links {
+        align-items: flex-start;
+        padding: 0 20px;
+    }
+}

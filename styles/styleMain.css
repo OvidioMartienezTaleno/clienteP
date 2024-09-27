@@ -54,8 +54,10 @@ body {
 }
 
 .movie-row {
+    overflow-x: auto;
     display: flex;
     gap: 20px;
+    padding-bottom: 30px;
     /*overflow-x: scroll;*/
 }
 
@@ -70,3 +72,4 @@ body {
 .movie-row img:hover {
     transform: scale(1.1);
 }
+
