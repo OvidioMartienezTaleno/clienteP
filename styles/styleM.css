@@ -12,7 +12,7 @@ body {
 /* Barra de navegación superior */
 .navbar {
     background-color: #181818; /* Fondo de barra de navegación */
-    width: 100%;
+    width: 95%;
     padding: 15px 30px;
     display: flex;
     justify-content: space-between;
