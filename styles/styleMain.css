@@ -59,6 +59,8 @@ body {
     gap: 20px;
     padding-bottom: 40px;
     /*overflow-x: scroll;*/
+    scrollbar-color: #1DB954 #2c2c2c; /* Color del pulgar y de la pista para Firefox */
+    
 }
 
 .movie-row img {
